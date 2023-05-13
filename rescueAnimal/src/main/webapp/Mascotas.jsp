@@ -47,18 +47,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <c:forEach var="em" items="${empleados}">
+                    <c:forEach var="ma" items="${mascota}">
                         <tr>
-                            <td id="idEmpleado_${em.getId()}">${em.getId()}</td>
-                            <td id="tipoDocumento_${em.getId()}">${em.getTipoDocumento()}</td>
-                            <td id="documento_${em.getId()}">${em.getDni()}</td>
-                            <td id="nombre_${em.getId()}">${em.getNombres()}</td>
-                            <td id="telefono_${em.getId()}">${em.getTelefono()}</td>
-                            <td id="email_${em.getId()}">${em.getEmail()}</td>
-                            <td id="user_${em.getId()}">${em.getUser()}</td>
-                            <td id="perfil_${em.getId()}">${em.getPerfil()}</td>
-                            <td id="pass_${em.getId()}">${em.getPass()}</td>
-                            <td id="estado_${em.getId()}">${em.getEstado()}</td>
+                            <td id="Codigo_${ma.getCodigo()}">${ma.getCodigo()}</td>
+                            <td id="nombre_${ma.getCodigo()}">${ma.getNombre()}</td>
+                            <td id="edad_${ma.getCodigo()}">${ma.getEdad()}</td>
+                            <td id="raza_${ma.getCodigo()}">${ma.getRaza()}</td>
+                            <td id="tamano_${ma.getCodigo()}">${ma.getTamaño()}</td>
+                            <td id="cantidad_${ma.getCodigo()}">${ma.getCantidadVida()}</td>
+                            <td id="tipo_${ma.getCodigo()}">${ma.getTipoAgua()}</td>
+                            <td id="mascota_${ma.getCodigo()}">${ma.getMascota  ()}</td>
+                            <td id="estado_${ma.getCodigo()}">${ma.getEstado()}</td>
                             <td>
                                 <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editarEmpleado" onclick="editarEmpleado(${em.getId()})">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">

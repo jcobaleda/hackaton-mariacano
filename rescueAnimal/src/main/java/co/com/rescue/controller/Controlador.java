@@ -5,6 +5,8 @@ import co.com.rescue.config.Validator;
 import co.com.rescue.model.Empleado;
 import co.com.rescue.model.EmpleadoDAO;
 import co.com.rescue.model.EstadosDAO;
+import co.com.rescue.model.Mascota;
+import co.com.rescue.model.MascotaDAO;
 import co.com.rescue.model.ModuloPerfil;
 import co.com.rescue.model.ModuloPerfilDAO;
 import co.com.rescue.model.Modulos;
@@ -40,6 +42,8 @@ public class Controlador extends HttpServlet {
     ModuloPerfilDAO modPerDao = new ModuloPerfilDAO();
     ModulosDAO modDao = new ModulosDAO();
     Modulos mod = new Modulos();
+    Mascota mas = new Mascota();
+    MascotaDAO masDao = new MascotaDAO();
 
     int idEmpleado;
     int idProducto;
@@ -72,7 +76,6 @@ public class Controlador extends HttpServlet {
                 case "Principal":
                     request.getRequestDispatcher("Principal.jsp").forward(request, response);
                     break;
-                
                 case "Empleado":
                     extractedEmpleado(request, response, accion);
                     request.getRequestDispatcher("Empleado.jsp").forward(request, response);
@@ -88,6 +91,10 @@ public class Controlador extends HttpServlet {
                 case "ModulePerfil":
                     extractedModPer(request, response, accion);
                     request.getRequestDispatcher("ModulosPerfil.jsp").forward(request, response);
+                    break;
+                case "Mascota":
+                    extractedMascota(request, response, accion);
+                    request.getRequestDispatcher("Mascotas.jsp").forward(request, response);
                     break;
                 default:
                     throw new AssertionError();
@@ -587,6 +594,47 @@ public class Controlador extends HttpServlet {
             request.getRequestDispatcher("Controlador?menu=ModulePerfil&accion=Listar").forward(request, response);
             Logger.getLogger(Controlador.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    private void extractedMascota(HttpServletRequest request, HttpServletResponse response, String accion) {
+        switch (accion) {
+            case "Listar":
+                extractedListarMascota(request);
+                break;
+            case "Agregar":
+                extractedAgregarMascota(request, response);
+                break;
+            case "Eliminar":
+                extractedEliminarMascota(request, response);
+                break;
+            case "Actualizar":
+                extractedActualizarMascota(request, response);
+                break;
+            default:
+                throw new AssertionError();
+        }
+    }
+
+    private void extractedListarMascota(HttpServletRequest request) {
+        try {
+            List lstMas = masDao.listar();
+            AppConstants.log.log(Level.INFO, "Se envian datos a la vista de Mascota");
+            request.setAttribute("mascota", lstMas);
+        } catch (Exception e) {
+            AppConstants.log.log(Level.SEVERE, "Error: " + e.getMessage(), e);
+        }
+    }
+
+    private void extractedAgregarMascota(HttpServletRequest request, HttpServletResponse response) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    private void extractedEliminarMascota(HttpServletRequest request, HttpServletResponse response) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    private void extractedActualizarMascota(HttpServletRequest request, HttpServletResponse response) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }

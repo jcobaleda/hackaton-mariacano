@@ -102,4 +102,9 @@ public class DatabaseConstants {
      */
     public static String SQL_TOTAL_VENTAS_DIA = "select sum(monto) as total from ventas where FechaVentas = ?";
     public static String SQL_TOTAL_VENTAS_MEDIOPAGO = "select sum(v.monto) as total from ventas v inner join medios_pago mp on v.idMedioPago = mp.id where mp.Nombre_Mp = ? and v.FechaVentas = ?";
+    
+    /**
+     * Constantes con consultas para mascotas
+     */
+   public static String SQL_LISTAR_MASCOTAS = "select m.codigo, m.nombre, m.edad, m.raza, m.tamano, m.catidad_vida, m.tipo_agua, m.mascota, e.Nombre estado from mascotas m inner join estados e on m.estado_id = e.id;";
 }
