@@ -28,7 +28,7 @@
             }
         %>
         <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#crearEmpleado">Crear Mascota</button>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#crearMascota">Crear Mascota</button>
         <br><br>
         <div class="col-sm-14">
             <table class="table">
@@ -76,56 +76,42 @@
                 </tbody>
             </table>
         </div>
-        <div class="modal fade" id="crearEmpleado" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal fade" id="crearMascota" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Formulario para crear un empleado</h5>
+                        <h5 class="modal-title">Formulario para crear una Mascota</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form action="Controlador?menu=Empleado" method="POST">
+                        <form action="Controlador?menu=Mascota" method="POST">
                             <div class="form-group">
-                                <label>Tipo de Documento</label>
-                                <select name="txtTipoDni" class="form-select" aria-label="Default select example">
-                                    <option selected>Elija una opcion</option>
-                                    <c:forEach var="doc" items="${documentos}">
-                                        <option value="${doc.getId()}">${doc.getDescripcion()}</option>
-                                    </c:forEach>
-                                </select>
+                                <label>Nombre</label>
+                                <input type="text" name="txtNombre" class="form-control">
                             </div>
                             <div class="form-group">
-                                <label>Numero de Documento</label>
-                                <input type="text" name="txtDni" class="form-control">
+                                <label>Edad</label>
+                                <input type="text" name="txtEdad" class="form-control">
                             </div>
                             <div class="form-group">
-                                <label>Nombres</label>
-                                <input type="text" name="txtNombres" class="form-control">
+                                <label>Raza</label>
+                                <input type="text" name="txtRaza" class="form-control">
                             </div>
                             <div class="form-group">
-                                <label>Telefono</label>
-                                <input type="text" name="txtTelefono" class="form-control">
+                                <label>Tamaño</label>
+                                <input type="text" name="txtTamaño" class="form-control">
                             </div>
                             <div class="form-group">
-                                <label>Correo Electronico</label>
-                                <input type="text" name="txtEmail" class="form-control">
+                                <label>Vidas</label>
+                                <input type="text" name="txtVidas" class="form-control">
                             </div>
                             <div class="form-group">
-                                <label>Nombre de Usuario</label>
-                                <input type="text" name="txtUsuario" class="form-control">
+                                <label>Tipo de Agua</label>
+                                <input type="text" name="txtAgua" class="form-control">
                             </div>
-                            <div class="form-group">
-                                <label>Contraseña</label>
-                                <input type="password" name="txtPass" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label>Perfil</label>
-                                <select name="txtPerfil" class="form-select" aria-label="Default select example">
-                                    <option selected>Elija una opcion</option>
-                                    <c:forEach var="per" items="${perfiles}">
-                                        <option value="${per.getId()}">${per.getNombrePerfil()}</option>
-                                    </c:forEach>
-                                </select>
+                            <div class="form-group">`
+                                <label>Mascota</label>
+                                <input type="text" name="txtMascota" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label>Estado</label>

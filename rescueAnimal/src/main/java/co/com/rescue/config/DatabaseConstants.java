@@ -107,4 +107,5 @@ public class DatabaseConstants {
      * Constantes con consultas para mascotas
      */
    public static String SQL_LISTAR_MASCOTAS = "select m.codigo, m.nombre, m.edad, m.raza, m.tamano, m.catidad_vida, m.tipo_agua, m.mascota, e.Nombre estado from mascotas m inner join estados e on m.estado_id = e.id;";
+   public static String SQL_AGREGAR_MASCOTA = "insert into mascotas(nombre, edad, raza, tamano, catidad_vida, tipo_agua, mascota, estado_id) values(?,?,?,?,?,?,?,?)";
 }

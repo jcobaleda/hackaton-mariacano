@@ -61,4 +61,33 @@ public class MascotaDAO {
         }
         return lstMas;
     }
+
+    public int agregar(Mascota mas) {
+        int response = 0;
+        String sql = DatabaseConstants.SQL_AGREGAR_MASCOTA;
+        try {
+            AppConstants.log.log(Level.INFO, " Inicia insercion en la base de datos"+mas.toString());
+            conn = dbu.getConexion();
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, mas.getNombre());
+            ps.setString(2, mas.getEdad());
+            ps.setString(3, mas.getRaza());
+            ps.setString(4, mas.getTamaño());
+            ps.setString(5, mas.getCantidadVida());
+            ps.setString(6, mas.getTipoAgua());
+            ps.setString(7, mas.getMascota());
+            ps.setString(6, mas.getEstado());
+
+            response = ps.executeUpdate();
+            AppConstants.log.log(Level.INFO, "Finaliza insercion en la base de datos de manera exitosa");
+        } catch (SQLException e) {
+            AppConstants.log.log(Level.SEVERE, ERROR_DB_MESSAGE + e.getMessage(), e);
+        } finally{
+            CloseConnections.closeConnection(conn);
+            CloseConnections.closePrepareStatement(ps);
+            CloseConnections.closeResultSet(rs);
+            AppConstants.log.log(Level.INFO, CIERRE_CONEXIONES);
+        }
+        return response;
+    }
 }

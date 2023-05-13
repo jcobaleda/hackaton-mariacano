@@ -30,7 +30,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author Daniel Velmonto
  */
 public class Controlador extends HttpServlet {
-    
+
     Empleado em = new Empleado();
     EmpleadoDAO empDao = new EmpleadoDAO();
     TipoDocumento tipoDoc = new TipoDocumento();
@@ -244,6 +244,7 @@ public class Controlador extends HttpServlet {
         }
 
     }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -282,8 +283,6 @@ public class Controlador extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
-   
 
     private void extractedTipoDoc(HttpServletRequest request, HttpServletResponse response, String accion) {
         try {
@@ -597,36 +596,67 @@ public class Controlador extends HttpServlet {
     }
 
     private void extractedMascota(HttpServletRequest request, HttpServletResponse response, String accion) {
-        switch (accion) {
-            case "Listar":
-                extractedListarMascota(request);
-                break;
-            case "Agregar":
-                extractedAgregarMascota(request, response);
-                break;
-            case "Eliminar":
-                extractedEliminarMascota(request, response);
-                break;
-            case "Actualizar":
-                extractedActualizarMascota(request, response);
-                break;
-            default:
-                throw new AssertionError();
+        try {
+            switch (accion) {
+                case "Listar":
+                    extractedListarMascota(request);
+                    break;
+                case "Agregar":
+                    extractedAgregarMascota(request, response);
+                    break;
+                case "Eliminar":
+                    extractedEliminarMascota(request, response);
+                    break;
+                case "Actualizar":
+                    extractedActualizarMascota(request, response);
+                    break;
+                default:
+                    throw new AssertionError();
+            }
+        } catch (IOException | ServletException e) {
+            AppConstants.log.log(Level.SEVERE, "Error: " + e.getMessage(), e);
         }
     }
 
     private void extractedListarMascota(HttpServletRequest request) {
         try {
             List lstMas = masDao.listar();
+            List lstEst = estDao.listar();
             AppConstants.log.log(Level.INFO, "Se envian datos a la vista de Mascota");
             request.setAttribute("mascota", lstMas);
+            request.setAttribute("estados", lstEst);
         } catch (Exception e) {
             AppConstants.log.log(Level.SEVERE, "Error: " + e.getMessage(), e);
         }
     }
 
-    private void extractedAgregarMascota(HttpServletRequest request, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    private void extractedAgregarMascota(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            mas.setNombre(request.getParameter("txtNombre"));
+            mas.setEdad(request.getParameter("txtEdad"));
+            mas.setRaza(request.getParameter("txtRaza"));
+            mas.setTamaño(request.getParameter("txtTamaño"));
+            mas.setCantidadVida(request.getParameter("txtVidas"));
+            mas.setTipoAgua(request.getParameter("txtAgua"));
+            mas.setMascota(request.getParameter("txtMascota"));
+            mas.setEstado(request.getParameter("txtEstado"));
+            AppConstants.log.log(Level.INFO, "Se reciben datos desde la vista" + mas.toString());
+            res = masDao.agregar(mas);
+            if (res > 0) {
+                request.setAttribute(AppConstants.STR_MENSAJE, "Mascota agregado con exito");
+                request.setAttribute(AppConstants.STR_TIPO, AppConstants.STR_TIPO_SUCCESS);
+                AppConstants.log.log(Level.INFO, "MAscota agregado con exito");
+            } else {
+                throw new Exception("Ocurrio un error agregando el Modulo por perfil");
+            }
+            AppConstants.log.log(Level.INFO, "Despues de agregar Modulo por perfil en la base de datos");
+            request.getRequestDispatcher("Controlador?menu=ModulePerfil&accion=Listar").forward(request, response);
+        } catch (Exception ex) {
+            request.setAttribute(AppConstants.STR_MENSAJE, ex.getMessage());
+            request.setAttribute(AppConstants.STR_TIPO, AppConstants.STR_TIPO_ERROR);
+            request.getRequestDispatcher("Controlador?menu=ModulePerfil&accion=Listar").forward(request, response);
+            Logger.getLogger(Controlador.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private void extractedEliminarMascota(HttpServletRequest request, HttpServletResponse response) {
